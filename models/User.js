@@ -1,5 +1,6 @@
 const mongoose=require('mongoose');
 const { isEmail } = require('validator');
+const bcrypt = require('bcrypt');
 
 //scheme dictates how different objects and docs look in database
 const userSchema = new mongoose.Schema({
@@ -16,6 +17,21 @@ const userSchema = new mongoose.Schema({
         minlength: [6, 'Minimum password length is 6 characters']
     }
 });
+
+//fire a dunction after new user has been saved to the database
+userSchema.post('save', function(doc, next){
+    console.log('New user was created and saved', doc);
+    next(); //always do at the end of any mongoose middleware or hook
+})
+
+//fire a func before doc saved to db
+userSchema.pre('save', async function(next){
+    //this is used to get access of the object created before it is saved to db
+    console.log('user about to be created and saved',this);
+    const salt = await bcrypt.genSalt();
+    this.password = await bcrypt.hash(this.password,salt); //takes two arguements, password and salt
+    next();
+})
 
 const User = mongoose.model('user', userSchema);
 
