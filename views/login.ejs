@@ -1,14 +1,14 @@
 <%- include('partials/header'); -%>
 
-<form action="/login">
-  <h2>Log In</h2>
+<form action="/signup">
+  <h2>Login</h2>
   <label for="email">Email</label>
-  <input type="text" name="email" required />
+  <input type="text" name="email"  />
   <div class="email error"></div>
   <label for="password">Password</label>
-  <input type="password" name="password" required />
+  <input type="password" name="password"  />
   <div class="password error"></div>
-  <button>Log In</button>
+  <button>login</button>
 </form>
 
 <%- include('partials/footer'); -%>
@@ -46,5 +46,3 @@
     }
   });
 </script>
-
-
