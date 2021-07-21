@@ -8,17 +8,17 @@ const handleErrors = (err) => {
 
   // incorrect email
   if (err.message === 'incorrect email') {
-    errors.email = 'The email is not registered';
+    errors.email = 'That email is not registered';
   }
 
   // incorrect password
   if (err.message === 'incorrect password') {
-    errors.password = 'The password is incorrect';
+    errors.password = 'That password is incorrect';
   }
 
   // duplicate email error
   if (err.code === 11000) {
-    errors.email = 'The email is already registered';
+    errors.email = 'that email is already registered';
     return errors;
   }
 
@@ -38,7 +38,7 @@ const handleErrors = (err) => {
 // create json web token
 const maxAge = 3 * 24 * 60 * 60;
 const createToken = (id) => {
-  return jwt.sign({ id }, 'aban secret', {
+  return jwt.sign({ id }, 'net ninja secret', {
     expiresIn: maxAge
   });
 };
@@ -84,8 +84,7 @@ module.exports.login_post = async (req, res) => {
 
 }
 
-module.exports.logout_get = (req,res) =>{
-    //replace jwt with a blank cookie with a very short expiry date
-    res.cookie('jwt', '', { maxAge: 1 });
-    res.redirect('/');
+module.exports.logout_get = (req, res) => {
+  res.cookie('jwt', '', { maxAge: 1 });
+  res.redirect('/');
 }
